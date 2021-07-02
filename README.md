@@ -9,21 +9,10 @@ Sidebar Service
 
 
 API
+=============
 
 
 Rest API run at ‘http://localhost:3044’ with all of the following routes:
-
-
-GET - ‘/siderbar’
-Returns courseID, fullLifetimeAccess, accessTypes, assignments, certificationOfCompletion, and downloadableResources for requested course. 
-POST - ‘/course’
-Created a new course in database
-Returns the created course on completion
-DELETE - ‘/course/{id}’
-Deleted the specified courseID
-Returns the deleted course on completion
-PUT - ‘/course/{id}’
-Edits a single requested course
 
   * GET - ‘/price’ 
      * Returns the courseID, basePrice, discountPercentage, discountedPrice, saleEndDate, and saleOngoing for requested course
@@ -33,5 +22,20 @@ Edits a single requested course
      * Returns a courseID and url of the preview video for requested course
 
 
-  * Bullet list item 2
+  * GET - ‘/siderbar’
+     * Returns courseID, fullLifetimeAccess, accessTypes, assignments, certificationOfCompletion, and downloadableResources for requested course.
+  
+
+  * POST - ‘/course’
+     * Created a new course in database
+     * Returns the created course on completion
+  
+
+  * DELETE - ‘/course/{id}’
+     * Deletes the specified courseID
+     * Returns the deleted course on completion
+
+
+  * PUT - ‘/course/{id}’
+     * Edits a single requested course  
 
