@@ -53,7 +53,7 @@ Rest API runs at ‘http://localhost:3044’ with all of the following routes:
     ```
   
 
-  * POST - `‘/course’`
+  * POST - `‘/course/{id}’`
      * Created a new course in database
      * Returns the created course on completion
   
