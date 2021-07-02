@@ -1,12 +1,10 @@
 # Sidebar
+- - - -
 
 "npm start" to start the server
 
 localhost:3004/populate to generate sample data and add it to a mongodb database (you may need to modify database.js depending on your mongodb installation)
 
-
-Sidebar Service
-- - - -
 
 
 API
@@ -17,29 +15,42 @@ Rest API runs at ‘http://localhost:3044’ with all of the following routes:
 
   * GET - `‘/price’` 
      * Returns the courseID, basePrice, discountPercentage, discountedPrice, saleEndDate, and saleOngoing for requested course
+ 
      ```   
-     {
-        "data": {
-            "lookedUpPlatform": 1,
-            "query": "Kasabian+Test+Transmission",
-            "lookedUpItem": {
-                "name": "Test Transmission",
-                "artist": "Kasabian",
-                "album": "Kasabian",
-                "picture": null,
-                "link": "http://open.spotify.com/track/5jhJur5n4fasblLSCOcrTp"
-            }
+        {
+         courseId: Number,
+         basePrice: Number,
+         discountPercentage: Number,
+         discountedPrice: Number,
+         saleEndDate: Date,
+         saleOngoing: Boolean
         }
-    }
     ```
 
 
   * GET - `‘/previewVideo’`
      * Returns a courseID and url of the preview video for requested course
+ 
+     ```   
+        {
+         previewVideoUrl: String
+        }
+    ```
 
 
   * GET - `‘/siderbar’`
      * Returns courseID, fullLifetimeAccess, accessTypes, assignments, certificationOfCompletion, and downloadableResources for requested course.
+ 
+     ```   
+        {
+         courseId: Number,
+         fullLifetimeAccess: String,
+         accessTypes: String,
+         assignments: Boolean,
+         certificateOfCompletion: Boolean,
+         downloadableResources: Number
+        }
+    ```
   
 
   * POST - `‘/course’`
@@ -53,5 +64,11 @@ Rest API runs at ‘http://localhost:3044’ with all of the following routes:
 
 
   * PUT - `‘/course/{id}’`
-     * Edits a single requested course  
+     * Edits a single requested course 
+ 
+     ```   
+        {
+         Key: New/Edited Value
+        }
+    ```
 
