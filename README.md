@@ -12,7 +12,7 @@ API
 =============
 
 
-Rest API run at ‘http://localhost:3044’ with all of the following routes:
+Rest API runs at ‘http://localhost:3044’ with all of the following routes:
 
   * GET - ‘/price’ 
      * Returns the courseID, basePrice, discountPercentage, discountedPrice, saleEndDate, and saleOngoing for requested course
