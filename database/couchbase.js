@@ -74,13 +74,14 @@ let seedCouchDB = () => {
     docs: []
   };
 
-  for (var i = 0; i < 1000; i++) {
+  for (var i = 0; i < 10000; i++) {
     const basePrice = createBasePrice();
     const baseDiscountPercentage = 84;
     const discountedPrice = (Math.round(Math.floor(basePrice * ((100 - baseDiscountPercentage) / 100)) * 100) / 100) + 0.99
     const saleEndDate = new Date();
     const videoIndex = Math.floor(Math.random() * 10);
     data.docs.push({
+      _id: counter.toString(),
       courseId: counter,
       basePrice: basePrice,
       discountPercentage: Math.round((1 - (discountedPrice / basePrice)) * 100),
@@ -95,11 +96,12 @@ let seedCouchDB = () => {
       downloadableResources: randomDecider(90) ? Math.round(Math.random() * 25) : 0
     });
     counter++;
+    console.log('Course ' + counter + ' created');
   }
 
   axios.post(url, data)
     .then((res) => {
-      if (counter <= 10000000) {
+      if (counter < 10000000) {
         data.docs = [];
         seedCouchDB()
       }
@@ -107,8 +109,6 @@ let seedCouchDB = () => {
     .catch((err) => {
       console.log(err);
     });
-
-
 }
 
 seedCouchDB();

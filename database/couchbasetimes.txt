@@ -1,0 +1,29 @@
+// Lookup
+curl -w "@/Users/michaelgallien/HackReactor/SDC/Sidebar/database/curl-format.txt" -o /dev/null -s -u admin -X GET http://admin:password@127.0.0.1:5984/sidebar/450897
+
+// Times
+     time_namelookup:  0.000127s
+        time_connect:  0.000386s
+     time_appconnect:  0.000000s
+    time_pretransfer:  0.000421s
+       time_redirect:  0.000000s
+  time_starttransfer:  0.005865s
+                     ----------
+          time_total:  0.005983s
+
+// Output
+{
+"_id":"450897",
+"_rev":"1-ef8b5af1d1d0acf10c046704551368b6",
+"courseId":450897,
+"basePrice":119.99,
+"discountPercentage":83,
+"discountedPrice":19.99,
+"saleEndDate":1626134321473,
+"saleOngoing":false,
+"previewVideoUrl":"https://example.com/previewVideo7.mp4",
+"fullLifetimeAccess":"Full access during subscription term",
+"accessTypes":"Access on mobile and TV","assignments":false,
+"certificateOfCompletion":false,
+"downloadableResources":15
+}
