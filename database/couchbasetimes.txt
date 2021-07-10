@@ -1,4 +1,4 @@
-// Lookup
+// GET
 curl -w "@/Users/michaelgallien/HackReactor/SDC/Sidebar/database/curl-format.txt" -o /dev/null -s -u admin -X GET http://admin:password@127.0.0.1:5984/sidebar/450897
 
 // Times
@@ -26,4 +26,24 @@ curl -w "@/Users/michaelgallien/HackReactor/SDC/Sidebar/database/curl-format.txt
 "accessTypes":"Access on mobile and TV","assignments":false,
 "certificateOfCompletion":false,
 "downloadableResources":15
+}
+
+// UPDATE
+curl -w "@/Users/michaelgallien/HackReactor/SDC/Sidebar/database/curl-format.txt" -o /dev/null -s -u admin -X PUT http://127.0.0.1:5984/sidebar/450897/ -d '{ "basePrice" : "4", "_rev" : "1-ef8b5af1d1d0acf10c046704551368b6" }'
+
+// Times
+     time_namelookup:  0.000142s
+        time_connect:  0.000383s
+     time_appconnect:  0.000000s
+    time_pretransfer:  0.000490s
+       time_redirect:  0.000000s
+  time_starttransfer:  0.000000s
+                     ----------
+          time_total:  0.064565s
+
+// Verification GET Output
+{
+  "_id":"450897",
+  "_rev":"2-792176eae708e6dc726524778356f6e0",
+  "basePrice":"4"
 }
