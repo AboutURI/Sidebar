@@ -14,11 +14,12 @@ app.use(cors());
 const url = 'http://admin:password@localhost:5984/sidebar/';
 
 app.get('/price', (req, res) => {
-  console.log("GET request received at /price.");
-  console.log(req.headers);
-  axios.get(url + '0')
+  // console.log("GET request received at /price.");
+  // console.log(req.headers);
+  // console.log(req.query.courseId)
+  axios.get(url + req.query.courseId)
   .then((results) => {
-    console.log(results.data)
+    // console.log(results.data)
     res.send(results.data)
   })
   // db.getPrice(req.query, (err, docs) => {
@@ -33,8 +34,8 @@ app.get('/price', (req, res) => {
 });
 
 app.get('/previewVideo', (req, res) => {
-  console.log("GET request received at /previewVideo.");
-  axios.get(url + '0')
+  // console.log("GET request received at /previewVideo.");
+  axios.get(url + req.query.courseId)
   .then((results) => {
     res.send(results.data)
   })
@@ -50,8 +51,8 @@ app.get('/previewVideo', (req, res) => {
 });
 
 app.get('/sidebar', (req, res) => {
-  console.log("GET request received at /sidebar.");
-  axios.get(url + '0')
+  // console.log("GET request received at /sidebar.");
+  axios.get(url + req.query.courseId)
   .then((results) => {
     res.send(results.data)
   })
