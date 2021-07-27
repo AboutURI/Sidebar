@@ -41,55 +41,69 @@ const createBasePrice = () => {
 }
 
 // Schemas
-  // Pricedata
-  // courseId: index,
-  // basePrice: basePrice,
-  // discountPercentage: Math.round((1 - (discountedPrice / basePrice)) * 100),
-  // discountedPrice: discountedPrice,
-  // saleEndDate: saleEndDate.setDate(saleEndDate.getDate() + 3),
-  // saleOngoing: randomDecider(30)
+// Pricedata
+// courseId: index,
+// basePrice: basePrice,
+// discountPercentage: Math.round((1 - (discountedPrice / basePrice)) * 100),
+// discountedPrice: discountedPrice,
+// saleEndDate: saleEndDate.setDate(saleEndDate.getDate() + 3),
+// saleOngoing: randomDecider(30)
 
-  // Videopreviewdata
-  // courseId: FOREIGN_KEY,
-  // previewVideoUrl: "https://example.com/previewVideo" + videoIndex + ".mp4",
+// Videopreviewdata
+// courseId: FOREIGN_KEY,
+// previewVideoUrl: "https://example.com/previewVideo" + videoIndex + ".mp4",
 
-  // Sidebardata
-  // courseId: FOREIGN_KEY,
-  // fullLifetimeAccess: randomDecider(70) ? "Full lifetime access" : "Full access during subscription term",
-  // accessTypes: "Access on mobile and TV",
-  // assignments: randomDecider(70),
-  // certificateOfCompletion: randomDecider(90),
-  // downloadableResources: randomDecider(90) ? Math.round(Math.random() * 25) : 0,
+// Sidebardata
+// courseId: FOREIGN_KEY,
+// fullLifetimeAccess: randomDecider(70) ? "Full lifetime access" : "Full access during subscription term",
+// accessTypes: "Access on mobile and TV",
+// assignments: randomDecider(70),
+// certificateOfCompletion: randomDecider(90),
+// downloadableResources: randomDecider(90) ? Math.round(Math.random() * 25) : 0,
 
 
-const Pricedata = sequelize.define('Pricedata', {
+// const Pricedata = sequelize.define('Pricedata', {
+  // courseId: {
+  //   type: DataTypes.INTEGER
+  // },
+//   basePrice: {
+//     type: DataTypes.INTEGER
+//   },
+//   discountPercentage: {
+//     type: DataTypes.INTEGER
+//   },
+//   discountedPrice: {
+//     type: DataTypes.INTEGER
+//   },
+//   saleEndDate: {
+//     type: DataTypes.DATE
+//   },
+//   saleOngoing: {
+//     type: DataTypes.BOOLEAN
+//   }
+// },
+//   {
+//     indexes: [
+//       {
+//         unique: true,
+//         fields: ['courseId']
+//       }
+//     ]
+//   })
+
+const Videopreviewdata = sequelize.define('Videopreviewdata', {
   courseId: {
     type: DataTypes.INTEGER
   },
-  basePrice: {
-    type: DataTypes.INTEGER
-  },
-  discountPercentage: {
-    type: DataTypes.INTEGER
-  },
-  discountedPrice: {
-    type: DataTypes.INTEGER
-  },
-  saleEndDate: {
-    type: DataTypes.DATE
-  },
-  saleOngoing: {
-    type: DataTypes.BOOLEAN
-  }
-})
-
-const Videopreviewdata = sequelize.define('Videopreviewdata', {
   previewVideoUrl: {
     type: DataTypes.STRING
   }
 })
 
-const Sidebardata = sequelize.define('Pricedata', {
+const Sidebardata = sequelize.define('Sidebardata', {
+  courseId: {
+    type: DataTypes.INTEGER
+  },
   fullLifetimeAccess: {
     type: DataTypes.STRING
   },
@@ -109,63 +123,65 @@ const Sidebardata = sequelize.define('Pricedata', {
 
 let counter = 0;
 
-const popPricedata = async () => {
-  let data = [];
+// const popPricedata = async () => {
+//   let data = [];
   // await sequelize.sync();
-  for (var i = 0; i < 100; i++) {
-    let id = counter;
-    const basePrice = createBasePrice();
-    const baseDiscountPercentage = 84;
-    const discountedPrice = (Math.round(Math.floor(basePrice * ((100 - baseDiscountPercentage) / 100)) * 100) / 100) + 0.99
-    const saleEndDate = new Date();
-    data.push({
-      courseId: id,
-      basePrice: basePrice,
-      discountPercentage: baseDiscountPercentage,
-      discountedPrice: discountedPrice,
-      saleEndDate: saleEndDate,
-      saleOngoing: randomDecider(30),
-    })
-    counter++;
-  }
+//   for (var i = 0; i < 10000; i++) {
+//     let id = counter;
+//     const basePrice = createBasePrice();
+//     const baseDiscountPercentage = 84;
+//     const discountedPrice = (Math.round(Math.floor(basePrice * ((100 - baseDiscountPercentage) / 100)) * 100) / 100) + 0.99
+//     const saleEndDate = new Date();
+//     data.push({
+//       courseId: id,
+//       basePrice: basePrice,
+//       discountPercentage: baseDiscountPercentage,
+//       discountedPrice: discountedPrice,
+//       saleEndDate: saleEndDate,
+//       saleOngoing: randomDecider(30),
+//     })
+//     counter++;
+//   }
 
-  await Pricedata.bulkCreate(data)
-  .then(() => {
-    if (counter < 100) {
-      popPricedata();
-    }
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-}
+//   await Pricedata.bulkCreate(data)
+//     .then(() => {
+//       if (counter < 10000000) {
+//         popPricedata();
+//       }
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+// }
 
 const popVideopreviewdata = async () => {
   let data = [];
   // await sequelize.sync();
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 1000; i++) {
+    let id = counter;
     const videoIndex = Math.floor(Math.random() * 10);
     data.push({
+      courseId: id,
       previewVideoUrl: "https://example.com/previewVideo" + videoIndex + ".mp4",
     })
     counter++;
   }
 
   await Videopreviewdata.bulkCreate(data)
-  .then(() => {
-    if (counter < 100) {
-      popVideopreviewdata();
-    }
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+    .then(() => {
+      if (counter < 10000000) {
+        popVideopreviewdata();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 }
 
 const popSidebardata = async () => {
   let data = [];
   // await sequelize.sync();
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 1000; i++) {
     data.push({
       fullLifetimeAccess: randomDecider(70) ? "Full lifetime access" : "Full access during subscription term",
       accessTypes: "Access on mobile and TV",
@@ -177,17 +193,17 @@ const popSidebardata = async () => {
   }
 
   await Sidebardata.bulkCreate(data)
-  .then(() => {
-    if (counter < 100) {
-      popSidebardata();
-    }
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+    .then(() => {
+      if (counter < 10000000) {
+        popSidebardata();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 }
 
 
-popPricedata();
+// popPricedata();
 // popVideopreviewdata();
 // popSidebardata();

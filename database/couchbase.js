@@ -111,4 +111,4 @@ let seedCouchDB = () => {
     });
 }
 
-seedCouchDB();
+// seedCouchDB();
