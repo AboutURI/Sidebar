@@ -31,3 +31,6 @@ cb-sidebar-aws-key.pem
 
 # Couchbase Config
 CouchbaseConfig.js
+
+#New Relic Config
+newrelic.js
