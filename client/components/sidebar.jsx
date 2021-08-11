@@ -6,7 +6,7 @@ export const Sidebar = () => {
   // Will match only numbers
   const regex = /\d+/;
 
-  console.log(window.location.search);
+  // console.log(window.location.search);
 
   // First, attempts to get the course ID from the URL's pathname. Will match the
   // first number (though only will display something to /course/<number> because
@@ -35,16 +35,26 @@ export const Sidebar = () => {
   useEffect(() => {
     let mounted = true;
 
-    fetch('http://localhost:3004/price?courseId=' + courseId)
-    .then(response => response.json())
+    // 'http://localhost:3004/price?courseId=' + courseId
+    fetch('/price?courseId=' + courseId, {
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+
+    })
+    .then(response => {
+      // console.log(response);
+      response.json()})
     .then(data => {
       if (mounted) {
+        // console.log('componenet data ' + data)
         setPriceData(data);
       }
     })
     .catch(error => console.warn("Error: " + error.message));
 
-    fetch('http://localhost:3004/previewVideo?courseId=' + courseId)
+    fetch('/previewVideo?courseId=' + courseId)
     .then(response => response.json())
     .then(data => {
       if (mounted) {
@@ -53,7 +63,7 @@ export const Sidebar = () => {
     })
     .catch(error => console.warn("Error: " + error.message));
 
-    fetch('http://localhost:3004/sidebar?courseId=' + courseId)
+    fetch('/sidebar?courseId=' + courseId)
     .then(response => response.json())
     .then(data => {
       if (mounted) {
@@ -62,7 +72,7 @@ export const Sidebar = () => {
     })
     .catch(error => console.warn("Error: " + error.message));
 
-    fetch('http://localhost:9800/course/item/?courseId=' + courseId)
+    fetch('/course/item/?courseId=' + courseId)
     .then(response => response.json())
     .then(data => {
       if (mounted) {
@@ -111,7 +121,7 @@ export const Sidebar = () => {
 
   if (courseData !== undefined) {
     ({totalArticles, totalLectures, totalQuizzes, totalExercises, courseLength} = courseData);
-    console.log("courseLength: " + courseLength);
+    // console.log("courseLength: " + courseLength);
     courseLength = DateTime.fromISO(courseLength).toSeconds();
     courseLength = Math.round((courseLength / 3600) * 2) / 2;
   }

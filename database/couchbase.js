@@ -1,6 +1,6 @@
 // const couchbase = require('couchbase');
 var couch = require('couch-db')
-const config = require('/Users/michaelgallien/HackReactor/SDC/Sidebar/couchbaseConfig.js');
+// const config = require('/Users/michaelgallien/HackReactor/SDC/Sidebar/couchbaseConfig.js');
 const faker = require('faker');
 const axios = require('axios');
 
@@ -10,7 +10,7 @@ var server = couch('https://localhost:5984', {
 
 server.auth('admin', 'password');
 
-var db = server.database('test');
+var db = server.database('sidebar');
 
 function dataGenerator() {
   let data = [];
@@ -64,10 +64,11 @@ const createBasePrice = () => {
   return basePrice;
 }
 
-
+// http://admin:password@ec2-3-101-47-159.us-west-1.compute.amazonaws.com:5984/sidebar
 let url = `http://admin:password@localhost:5984/sidebar/_bulk_docs`;
+// http://admin:password@localhost:5984/sidebar/_restart
 
-let counter = 0;
+let counter = 4890000;
 
 let seedCouchDB = () => {
   let data = {
@@ -107,8 +108,8 @@ let seedCouchDB = () => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.log('This is the Error ' + err);
     });
 }
 
-// seedCouchDB();
+seedCouchDB();

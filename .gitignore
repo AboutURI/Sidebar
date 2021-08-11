@@ -34,3 +34,7 @@ CouchbaseConfig.js
 
 #New Relic Config
 newrelic.js
+
+#Ec2 Key Pair
+Sidebar.pem
+Database.pem
