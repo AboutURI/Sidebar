@@ -4,37 +4,72 @@ import { jUnit, textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.j
 
 export let options = {
   stages: [
-    { duration: '30s', target: 4000 },
-    { duration: '30s', target: 4300 },
-    { duration: '30s', target: 4600 },
-    { duration: '30s', target: 4900 },
-    { duration: '30s', target: 5200 },
+    { duration: '60s', target: 1250 }
+    // { duration: '30s', target: 1500 }
+    // { duration: '30s', target: 3000 }
+    // { duration: '30s', target: 4900 },
+    // { duration: '30s', target: 5200 },
   ],
 };
 
 export default function () {
   // let res = http.get('http://localhost:3004');
   // let res = http.get('http://admin:password@localhost:5984/sidebar/0')
-  let res = http.get('http://ec2-13-57-225-97.us-west-1.compute.amazonaws.com:3004/?courseId=45043')
+  let res = http.get('http://ec2-18-144-63-186.us-west-1.compute.amazonaws.com:6012/sidebar?courseId=7')
+
+  function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+  }
+
+
+  // let BASE_URL = 'http://ec2-18-144-63-186.us-west-1.compute.amazonaws.com:6012'
+
+  // let res = http.batch([
+  //   [
+  //     'GET',
+  //     `${BASE_URL}/sidebar?courseId=${getRandomIntInclusive(0,10000000)}`
+  //   ],
+  //   [
+  //     'GET',
+  //     `${BASE_URL}/sidebar?courseId=${getRandomIntInclusive(0,10000000)}`
+  //   ],
+  //   [
+  //     'GET',
+  //     `${BASE_URL}/sidebar?courseId=${getRandomIntInclusive(0,10000000)}`
+  //   ],
+  //   [
+  //     'GET',
+  //     `${BASE_URL}/sidebar?courseId=${getRandomIntInclusive(0,10000000)}`
+  //   ]
+  // ]);
+
   check(res, { 'status was 200': (r) => r.status == 200 });
+  // check(res, {'JSON had data': (r) => r.id != null});
+
   sleep(1);
 }
 
-export function handleSummary(data) {
-  console.log('Preparing the end-of-test summary...');
+// ?course?${id}/
+// or
+// course/${id}/price
 
-  // Send the results to some remote server or trigger a hook
-  // let resp = http.post('https://httpbin.test.k6.io/anything', JSON.stringify(data));
-  // if (resp.status != 200) {
-  //     console.error('Could not send summary, got status ' + resp.status);
-  // }
+// export function handleSummary(data) {
+//   console.log('Preparing the end-of-test summary...');
 
-  return {
-      'stdout': textSummary(data, { indent: ' ', enableColors: true}), // Show the text summary to stdout...
-      'Sidebar/junit.xml': jUnit(data), // but also transform it and save it as a JUnit XML...
-      'Sidebar/summary.json': JSON.stringify(data), // and a JSON with all the details...
-      'raw-data.json': JSON.stringify(data)
-      // And any other JS transformation of the data you can think of,
-      // you can write your own JS helpers to transform the summary data however you like!
-  }
-}
+//   // Send the results to some remote server or trigger a hook
+//   // let resp = http.post('https://httpbin.test.k6.io/anything', JSON.stringify(data));
+//   // if (resp.status != 200) {
+//   //     console.error('Could not send summary, got status ' + resp.status);
+//   // }
+
+//   return {
+//       'stdout': textSummary(data, { indent: ' ', enableColors: true}), // Show the text summary to stdout...
+//       'Sidebar/junit.xml': jUnit(data), // but also transform it and save it as a JUnit XML...
+//       'Sidebar/summary.json': JSON.stringify(data), // and a JSON with all the details...
+//       'raw-data.json': JSON.stringify(data)
+//       // And any other JS transformation of the data you can think of,
+//       // you can write your own JS helpers to transform the summary data however you like!
+//   }
+// }

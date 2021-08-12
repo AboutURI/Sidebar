@@ -2,7 +2,7 @@ const express = require('express');
 const serveStatic = require('serve-static');
 const app = express();
 const path = require('path');
-const db = require('../database/database.js');
+// const db = require('../database/database.js');
 const cors = require('cors');
 const axios = require('axios');
 require('newrelic');
@@ -12,16 +12,16 @@ app.use(express.json());
 app.use(cors());
 
 const ec2eul = 'http://admin:password@ec2-54-215-193-90.us-west-1.compute.amazonaws.com:5984/sidebar/'
-const url = 'http://admin:password@localhost:5984/sidebar/';
+// const url = 'http://admin:password@localhost:5984/sidebar/';
 
 app.get('/price', (req, res) => {
-  console.log("GET request received at /price.");
+  // console.log("GET request received at /price.");
   // console.log(req.headers);
   // console.log(req.query.courseId)
   axios.get(ec2eul + req.query.courseId)
   .then((results) => {
-    console.log('results Data')
-    console.log(results.data)
+    // console.log('results Data')
+    // console.log(results.data)
     res.send(results.data)
   })
   // db.getPrice(req.query, (err, docs) => {
