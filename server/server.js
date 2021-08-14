@@ -5,6 +5,7 @@ const path = require('path');
 // const db = require('../database/database.js');
 const cors = require('cors');
 const axios = require('axios');
+const redis = require('redis');
 require('newrelic');
 
 app.use(express.static('public'));
@@ -13,15 +14,35 @@ app.use(cors());
 
 const ec2eul = 'http://admin:password@ec2-54-215-193-90.us-west-1.compute.amazonaws.com:5984/sidebar/'
 // const url = 'http://admin:password@localhost:5984/sidebar/';
+const REDIS_PORT = process.env.PORT || 6379;
 
-app.get('/price', (req, res) => {
+const client = redis.createClient(REDIS_PORT);
+
+function cache(req, res, next) {
+  const id = req.query.courseId;
+
+  client.get(id, (err, data) => {
+    if (err) throw err;
+
+    if (data !== null) {
+      res.send(data);
+    } else {
+      next();
+    }
+  });
+}
+
+app.get('/price', cache, (req, res) => {
   // console.log("GET request received at /price.");
-  // console.log(req.headers);
-  // console.log(req.query.courseId)
   axios.get(ec2eul + req.query.courseId)
   .then((results) => {
-    // console.log('results Data')
-    // console.log(results.data)
+    client.setnx(results.data.courseId.toString(), JSON.stringify(results.data), function(err, reply) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(reply)
+      }
+    });
     res.send(results.data)
   })
   // db.getPrice(req.query, (err, docs) => {
@@ -35,10 +56,17 @@ app.get('/price', (req, res) => {
   // });
 });
 
-app.get('/previewVideo', (req, res) => {
+app.get('/previewVideo', cache, (req, res) => {
   // console.log("GET request received at /previewVideo.");
   axios.get(ec2eul + req.query.courseId)
   .then((results) => {
+    client.setnx(results.data.courseId.toString(), JSON.stringify(results.data), function(err, reply) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(reply)
+      }
+    });
     res.send(results.data)
   })
   // db.getPreviewVideo(req.query, (err, docs) => {
@@ -52,10 +80,17 @@ app.get('/previewVideo', (req, res) => {
   // });
 });
 
-app.get('/sidebar', (req, res) => {
+app.get('/sidebar', cache, (req, res) => {
   // console.log("GET request received at /sidebar.");
   axios.get(ec2eul + req.query.courseId)
   .then((results) => {
+    client.setnx(results.data.courseId.toString(), JSON.stringify(results.data), function(err, reply) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(reply)
+      }
+    });
     res.send(results.data)
   })
   // db.getSidebar(req.query, (err, docs) => {
